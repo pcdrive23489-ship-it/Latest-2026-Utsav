@@ -132,10 +132,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
+    // Tear down the session everywhere (Supabase + local/session/Capacitor
+    // storage) before touching React state so nothing can re-hydrate.
     await logoutService();
     setUser(null);
     setStatus('unauthenticated');
-    router.push('/login');
+    // `replace` (not `push`) so the authenticated screen is removed from the
+    // history stack — the hardware/browser Back button cannot return to it.
+    router.replace('/login');
   };
 
   const value: AuthContextType = { user, status, login, signup, logout, updateUserContext };

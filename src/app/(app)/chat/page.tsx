@@ -17,6 +17,7 @@ import { formatDistanceToNow } from 'date-fns';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { cn, compressImage } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
+import BackButton from '@/components/back-button';
 
 const EMOJI_REACTIONS = ['👍', '❤️', '😂', '😯', '😢', '🙏'];
 
@@ -267,13 +268,16 @@ export default function ChatPage() {
     }
 
     return (
-        <div className="flex flex-col h-full max-h-[calc(100vh-10rem)]">
-            <div className="text-center mb-8">
-                <h1 className="text-4xl font-bold font-headline text-primary">Community Chat</h1>
-                <p className="text-lg text-muted-foreground mt-2">Share memories and celebrate together in real-time.</p>
+        <div className="mx-auto flex h-[calc(100dvh-7rem)] w-full max-w-4xl flex-col animate-fade-in lg:h-[calc(100dvh-5rem)]">
+            <div className="mb-4 flex items-center gap-3 sm:mb-6">
+                <BackButton />
+                <div className="min-w-0">
+                    <h1 className="font-headline text-2xl font-bold tracking-tight text-primary sm:text-3xl">Community Chat</h1>
+                    <p className="truncate text-sm text-muted-foreground">Share memories and celebrate together in real-time.</p>
+                </div>
             </div>
 
-            <Card className="w-full flex-1 flex flex-col shadow-2xl">
+            <Card className="flex w-full flex-1 flex-col overflow-hidden shadow-2xl">
                 <CardHeader>
                     <CardTitle>#utsav-connect</CardTitle>
                     <CardDescription>A space for all devotees to connect.</CardDescription>

@@ -3,11 +3,13 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Bell, CheckCircle, Loader2 } from 'lucide-react';
+import { Bell, CheckCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { FestivalEvent } from '@/lib/types';
 import { getEvents } from '@/services/database';
 import { useToast } from '@/hooks/use-toast';
+import PageHeader from '@/components/page-header';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function SchedulePage() {
   const [events, setEvents] = useState<FestivalEvent[]>([]);
@@ -34,20 +36,34 @@ export default function SchedulePage() {
     fetchEvents();
   }, [toast]);
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center p-8 h-full">
-                <Loader2 className="h-16 w-16 animate-spin text-primary" />
-            </div>
-        )
-    }
-
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-headline text-primary">Event Schedule</h1>
-        <p className="text-lg text-muted-foreground mt-2">Plan your visit and join the celebrations.</p>
-      </div>
+    <div className="mx-auto w-full max-w-7xl animate-fade-in">
+      <PageHeader title="Event Schedule" subtitle="Plan your visit and join the celebrations." />
+        {loading ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, i) => (
+                    <Card key={i} className="flex flex-col">
+                        <CardHeader className="space-y-3">
+                            <Skeleton className="h-6 w-3/4" />
+                            <Skeleton className="h-4 w-1/2" />
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-2">
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-5/6" />
+                        </CardContent>
+                        <CardFooter className="justify-end gap-2">
+                            <Skeleton className="h-10 w-24" />
+                            <Skeleton className="h-10 w-28" />
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        ) : events.length === 0 ? (
+            <Card className="flex flex-col items-center justify-center py-16 text-center">
+                <Bell className="mb-3 h-10 w-10 text-muted-foreground/50" />
+                <p className="text-muted-foreground">No events scheduled yet. Check back soon!</p>
+            </Card>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
             <Card key={event.id} className="flex flex-col">
@@ -73,6 +89,7 @@ export default function SchedulePage() {
             </Card>
             ))}
         </div>
+        )}
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { Loader2, Upload, ClipboardCopy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { uploadFile } from '@/services/storage';
 import { validateDonationInput } from '@/lib/validation';
+import PageHeader from '@/components/page-header';
 
 export default function DonatePage() {
   const [donationSettings, setDonationSettings] = useState<DonationTransparency | null>(null);
@@ -102,13 +103,10 @@ export default function DonatePage() {
 
 
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-headline text-primary">Donation &amp; Support</h1>
-        <p className="text-lg text-muted-foreground mt-2">Your generous contribution helps make this festival a grand success.</p>
-      </div>
+    <div className="mx-auto w-full max-w-5xl animate-fade-in">
+      <PageHeader title="Donation & Support" subtitle="Your generous contribution helps make this festival a grand success." />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <Card>
           <CardHeader>
             <CardTitle>Donate Securely</CardTitle>

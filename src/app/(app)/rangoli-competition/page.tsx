@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { compressImage } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
 import { motion, AnimatePresence } from 'framer-motion';
+import BackButton from '@/components/back-button';
 
 
 function EntryFormDialog({ open, onOpenChange, onSuccess, entry }: { open: boolean, onOpenChange: (open: boolean) => void, onSuccess: () => void, entry: RangoliEntry | null }) {
@@ -275,12 +276,19 @@ export default function RangoliCompetitionPage() {
     }
     
     return (
-        <div className="space-y-12 max-w-7xl mx-auto">
+        <div className="space-y-10 max-w-7xl mx-auto animate-fade-in">
+            <div className="flex items-center gap-3 sm:hidden">
+                <BackButton />
+                <span className="text-lg font-bold text-primary">Rangoli Competition</span>
+            </div>
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mb-12"
             >
+                <div className="mb-6 hidden sm:flex sm:justify-start">
+                    <BackButton />
+                </div>
                 <div className="inline-block px-4 py-1.5 mb-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium tracking-wide uppercase">
                     Annual Celebration
                 </div>

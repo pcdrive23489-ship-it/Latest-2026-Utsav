@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Video, VideoOff, Mic, MicOff, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getErrorMessage } from "@/lib/validation";
+import PageHeader from "@/components/page-header";
 
 
 const APP_ID = process.env.NEXT_PUBLIC_AGORA_APP_ID || "YOUR_AGORA_APP_ID";
@@ -247,11 +248,8 @@ export default function LiveDarshanPage() {
   const isAdmin = user?.role === "admin" || user?.role === "super-admin";
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold font-headline text-primary">Live Darshan</h1>
-        <p className="text-lg text-muted-foreground mt-2">Experience the divine presence, live from the event.</p>
-      </div>
+    <div className="mx-auto w-full max-w-4xl animate-fade-in">
+      <PageHeader title="Live Darshan" subtitle="Experience the divine presence, live from the event." />
 
        {isAdmin ? (
         <AdminLiveStreamer AgoraRTC={AgoraRTC} />
